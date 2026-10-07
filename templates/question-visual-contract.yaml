@@ -1,0 +1,25 @@
+top_level_question: "q1"
+status: "draft|confirmed|revised"
+inherited_global_style: null
+palette:
+  primary: null
+  secondary: []
+  comparison: []
+  warning: null
+  feasible: null
+  infeasible: null
+  missing_or_unknown: null
+  colorblind_safe: null
+  rationale: null
+encoding:
+  line_styles: []
+  markers: []
+  units_and_labels: "explicit"
+  uncertainty_style: null
+font_and_layout: null
+input_interface:
+  previous_question_outputs: []
+  units: []
+  error_state: null
+allowed_exceptions: []
+confirmed_by_user: false

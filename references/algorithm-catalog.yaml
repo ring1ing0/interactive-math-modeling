@@ -1,0 +1,870 @@
+{
+  "schema_version": "0.2",
+  "reviewed_on": "2026-10-07",
+  "format_note": "JSON is valid YAML; no parser dependency for the workflow checker",
+  "purpose": "原创条件与验证索引，不附算法实现/教材原文，不是穷尽库",
+  "source_policy": "primary_sources列实现官方参考；没有来源的方法在实际使用前补核验教材/原始文献，不把官方求解器文档当模型适用证据",
+  "cards": [
+    {
+      "id": "time_baseline",
+      "task_family": "time_prediction",
+      "methods": [
+        "last_value",
+        "seasonal_naive",
+        "drift"
+      ],
+      "preconditions": [
+        "时间索引/预测跨度明确",
+        "季节基线需要已知周期和对应历史"
+      ],
+      "reject_if": [
+        "目标依赖未知未来特征"
+      ],
+      "validation": [
+        "滚动或时间顺序回测",
+        "与主模型相同跨度/指标",
+        "区间或误差分布"
+      ],
+      "optional_packages": [],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "趋势/结构突变可能使历史延续无效",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "ets_arima",
+      "task_family": "time_prediction",
+      "methods": [
+        "ETS",
+        "ARIMA",
+        "SARIMA"
+      ],
+      "preconditions": [
+        "趋势/季节/平稳或差分结构核查",
+        "足够识别周期与参数"
+      ],
+      "reject_if": [
+        "用普通随机划分报告未来预测",
+        "参数数量与有效历史不相称"
+      ],
+      "validation": [
+        "时间回测",
+        "残差/区间",
+        "对比time_baseline"
+      ],
+      "optional_packages": [
+        "statsmodels"
+      ],
+      "primary_sources": [
+        "https://www.statsmodels.org/stable/tsa.html",
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "阶数选择和差分在训练窗口完成；外推范围受限",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "state_space_var",
+      "task_family": "time_prediction",
+      "methods": [
+        "state_space",
+        "VAR"
+      ],
+      "preconditions": [
+        "多序列或潜在状态有题意依据",
+        "外生变量预测时可获得"
+      ],
+      "reject_if": [
+        "维度相对有效样本过高",
+        "未建模的非平稳协整结构"
+      ],
+      "validation": [
+        "时间回测",
+        "参数稳定性",
+        "基线与结构诊断"
+      ],
+      "optional_packages": [
+        "statsmodels"
+      ],
+      "primary_sources": [
+        "https://www.statsmodels.org/stable/tsa.html"
+      ],
+      "main_risk": "多序列相关并不代表因果；检查可辨识性",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "grey_gm11",
+      "task_family": "time_prediction",
+      "methods": [
+        "GM(1,1)"
+      ],
+      "preconditions": [
+        "正值且近指数/平滑结构有证据",
+        "级比/累加模型条件已核查"
+      ],
+      "reject_if": [
+        "明显振荡或季节未解释",
+        "仅以小样本为推荐理由"
+      ],
+      "validation": [
+        "与朴素/趋势基线回测",
+        "参数/起点敏感性",
+        "外推边界"
+      ],
+      "optional_packages": [
+        "numpy"
+      ],
+      "primary_sources": [],
+      "main_risk": "教材方法，实际使用需配置教材/核验原始文献并复核公式，不默认现代通用预测器",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "linear_glm",
+      "task_family": "tabular_prediction",
+      "methods": [
+        "OLS",
+        "Ridge",
+        "Lasso",
+        "GLM"
+      ],
+      "preconditions": [
+        "目标分布/连接函数与结构一致",
+        "特征在预测时点可用"
+      ],
+      "reject_if": [
+        "仅训练拟合用作泛化",
+        "目标/标签泄漏"
+      ],
+      "validation": [
+        "时序/分组或独立CV按任务",
+        "残差/误差区间",
+        "正则参数只训练内选择"
+      ],
+      "optional_packages": [
+        "scikit-learn",
+        "statsmodels"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/user_guide.html",
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "共线性、非线性、异方差和高维可改变解释",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "tree_boosting",
+      "task_family": "tabular_prediction",
+      "methods": [
+        "random_forest",
+        "hist_gradient_boosting",
+        "XGBoost_optional"
+      ],
+      "preconditions": [
+        "非线性/交互结构证据",
+        "有效样本/维度支持验证"
+      ],
+      "reject_if": [
+        "选择方法依赖测试集",
+        "相同对象泄漏跨折"
+      ],
+      "validation": [
+        "同协议对比linear_glm",
+        "训练内调参",
+        "误差与特征稳定性"
+      ],
+      "optional_packages": [
+        "scikit-learn"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/user_guide.html",
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "XGBoost需单独官方文档/安装，不能声称已内置实现",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "kernel_gp",
+      "task_family": "tabular_prediction",
+      "methods": [
+        "SVR",
+        "Gaussian_process"
+      ],
+      "preconditions": [
+        "尺度/核函数有适配理由",
+        "样本规模与计算成本可承受"
+      ],
+      "reject_if": [
+        "忽略核训练计算预算",
+        "高维距离无意义"
+      ],
+      "validation": [
+        "训练折内缩放/调参",
+        "基线和区间校准"
+      ],
+      "optional_packages": [
+        "scikit-learn"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/user_guide.html",
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "核选择/不确定性假设可能造成过度自信",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "deep_sequence",
+      "task_family": "time_prediction",
+      "methods": [
+        "LSTM",
+        "GRU",
+        "temporal_neural_network"
+      ],
+      "preconditions": [
+        "长序列/任务结构支持",
+        "训练和独立验证信息量足够",
+        "较简单模型确有未解决缺陷"
+      ],
+      "reject_if": [
+        "以模型先进为理由",
+        "样本很少且无预训练/先验依据",
+        "无法公平预算比较"
+      ],
+      "validation": [
+        "时间回测",
+        "多种子/资源预算",
+        "对比ETS/线性/树基线",
+        "必要模块消融"
+      ],
+      "optional_packages": [],
+      "primary_sources": [],
+      "main_risk": "实际调用需核验所选框架官方资料及依赖；不硬设通用样本阈值",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "classification",
+      "task_family": "classification",
+      "methods": [
+        "majority_baseline",
+        "logistic_regression",
+        "tree_classifier"
+      ],
+      "preconditions": [
+        "标签定义/质量/信息时点已确认",
+        "类别不平衡和错误代价明确"
+      ],
+      "reject_if": [
+        "标签泄漏",
+        "同一实体跨训练测试导致虚高"
+      ],
+      "validation": [
+        "分层/分组/时间划分按任务",
+        "主指标/阈值训练内选",
+        "校准/混淆及少数类表现"
+      ],
+      "optional_packages": [
+        "scikit-learn"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/user_guide.html",
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "accuracy不能代表所有错误成本",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "cluster_partition",
+      "task_family": "clustering",
+      "methods": [
+        "KMeans",
+        "hierarchical",
+        "Gaussian_mixture"
+      ],
+      "preconditions": [
+        "无标签分群任务而非预测",
+        "相似性/尺度具有题意解释"
+      ],
+      "reject_if": [
+        "只用一个内部指标宣称真实群体",
+        "混合单位未经处理"
+      ],
+      "validation": [
+        "聚类稳定性",
+        "多距离/群数敏感性",
+        "外部业务解释"
+      ],
+      "optional_packages": [
+        "scikit-learn"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/modules/clustering.html"
+      ],
+      "main_risk": "簇形状/方差假设决定算法适配",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "cluster_density",
+      "task_family": "clustering",
+      "methods": [
+        "DBSCAN",
+        "HDBSCAN"
+      ],
+      "preconditions": [
+        "密度/噪声结构有依据",
+        "距离与尺度已核查"
+      ],
+      "reject_if": [
+        "高维距离退化未处理",
+        "把噪声标记直接当错误数据删除"
+      ],
+      "validation": [
+        "密度参数敏感性",
+        "稳定性与噪声比例",
+        "与partition对比"
+      ],
+      "optional_packages": [
+        "scikit-learn"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/modules/clustering.html"
+      ],
+      "main_risk": "局部密度变化会使统一阈值失效",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "dimension_reduction",
+      "task_family": "feature_representation",
+      "methods": [
+        "PCA",
+        "factor_model"
+      ],
+      "preconditions": [
+        "降维/潜在因素服务明确目标",
+        "尺度/有效样本与结构核查"
+      ],
+      "reject_if": [
+        "用全数据拟合后报告测试泛化",
+        "将成分自动命名为真实机制"
+      ],
+      "validation": [
+        "训练内拟合",
+        "方差/重构或下游验证",
+        "加载稳定性"
+      ],
+      "optional_packages": [
+        "scikit-learn",
+        "statsmodels"
+      ],
+      "primary_sources": [
+        "https://scikit-learn.org/stable/user_guide.html",
+        "https://scikit-learn.org/stable/modules/cross_validation.html"
+      ],
+      "main_risk": "是特征/机制工具，不自动解决排序或因果",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "weighting_ahp",
+      "task_family": "evaluation",
+      "methods": [
+        "AHP"
+      ],
+      "preconditions": [
+        "真实专家或有依据判断",
+        "层级结构与准则含义明确"
+      ],
+      "reject_if": [
+        "编造判断矩阵",
+        "将一致性视为外部效度"
+      ],
+      "validation": [
+        "判断一致性",
+        "权重/排序敏感性",
+        "等权对照"
+      ],
+      "optional_packages": [
+        "numpy"
+      ],
+      "primary_sources": [],
+      "main_risk": "使用前核验标准方法参考；不能因教材缺专节而假造专家意见",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "weighting_entropy",
+      "task_family": "evaluation",
+      "methods": [
+        "entropy_weight"
+      ],
+      "preconditions": [
+        "指标方向/尺度明确",
+        "离散度作为权重依据被接受"
+      ],
+      "reject_if": [
+        "零方差/零值规则未定义",
+        "将离散度权重称客观重要性"
+      ],
+      "validation": [
+        "方向/标准化/零值检查",
+        "等权与替代权重敏感性"
+      ],
+      "optional_packages": [
+        "numpy"
+      ],
+      "primary_sources": [],
+      "main_risk": "需在本题解释离散度与价值/重要性的区别并核验公式来源",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "ranking_topsis",
+      "task_family": "evaluation",
+      "methods": [
+        "TOPSIS"
+      ],
+      "preconditions": [
+        "距离排名回答原目标",
+        "理想点/方向/尺度和偏好有依据"
+      ],
+      "reject_if": [
+        "未经处理的高度冗余指标",
+        "用排名替代因果或约束优化"
+      ],
+      "validation": [
+        "理想点/尺度/权重",
+        "删指标/新增备选排序稳定性",
+        "等权基线"
+      ],
+      "optional_packages": [
+        "numpy"
+      ],
+      "primary_sources": [],
+      "main_risk": "需核验所选变体公式与适用条件，不能自动用固定组合熵权+TOPSIS",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "efficiency_dea",
+      "task_family": "evaluation",
+      "methods": [
+        "DEA_CCR",
+        "DEA_BCC"
+      ],
+      "preconditions": [
+        "同质决策单元",
+        "输入/输出非负及规模报酬选择有依据"
+      ],
+      "reject_if": [
+        "指标过多相对DMUs导致辨识弱",
+        "异质对象混为同一前沿"
+      ],
+      "validation": [
+        "规模/方向选择",
+        "异常与输入输出敏感性",
+        "前沿稳定性"
+      ],
+      "optional_packages": [
+        "scipy",
+        "cvxpy"
+      ],
+      "primary_sources": [
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html",
+        "https://www.cvxpy.org/tutorial/dcp/index.html"
+      ],
+      "main_risk": "求解器文档只支持实现，不提供DEA适用性证明；模型参考需另核验",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "linear_mixed_integer",
+      "task_family": "optimization",
+      "methods": [
+        "LP",
+        "MILP"
+      ],
+      "preconditions": [
+        "目标约束线性",
+        "变量类型/界/单位明确",
+        "求解器支持所需规模"
+      ],
+      "reject_if": [
+        "隐含非线性被忽略",
+        "整数变量连续放松后直接报可行"
+      ],
+      "validation": [
+        "独立约束/目标复算",
+        "求解状态/gap/界",
+        "小规模精确或可行策略基线"
+      ],
+      "optional_packages": [
+        "scipy"
+      ],
+      "primary_sources": [
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.milp.html"
+      ],
+      "main_risk": "时间限制的可行解与已证明最优分开",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "constraint_programming",
+      "task_family": "optimization",
+      "methods": [
+        "CP-SAT"
+      ],
+      "preconditions": [
+        "整数/离散逻辑或排程结构",
+        "系数整数化与精度处理明确"
+      ],
+      "reject_if": [
+        "把整数缩放改变的约束视为原模型完全一致"
+      ],
+      "validation": [
+        "独立原单位约束检查",
+        "状态/界",
+        "小规模枚举或MILP对照"
+      ],
+      "optional_packages": [
+        "ortools"
+      ],
+      "primary_sources": [
+        "https://developers.google.com/optimization/cp/cp_solver"
+      ],
+      "main_risk": "FEASIBLE与OPTIMAL不同；缩放/溢出风险",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "convex_programming",
+      "task_family": "optimization",
+      "methods": [
+        "convex_QP",
+        "SOCP",
+        "DCP"
+      ],
+      "preconditions": [
+        "结构可证凸或符合建模规则",
+        "求解器支持锥/目标"
+      ],
+      "reject_if": [
+        "非凸表达伪装凸",
+        "忽略松弛/近似差异"
+      ],
+      "validation": [
+        "原始/对偶残差",
+        "约束复算",
+        "充分条件/小规模解"
+      ],
+      "optional_packages": [
+        "cvxpy"
+      ],
+      "primary_sources": [
+        "https://www.cvxpy.org/tutorial/dcp/index.html"
+      ],
+      "main_risk": "DCP通过证明表达符合规则，不替代真实题意/数据正确性",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "nonlinear_optimization",
+      "task_family": "optimization",
+      "methods": [
+        "smooth_local_solver",
+        "multi_start"
+      ],
+      "preconditions": [
+        "连续结构/边界明确定义",
+        "导数或黑箱成本可用"
+      ],
+      "reject_if": [
+        "局部stationary结果直接称全局最优"
+      ],
+      "validation": [
+        "硬约束复算",
+        "多初值/小规模基准",
+        "数值收敛与最优性边界"
+      ],
+      "optional_packages": [
+        "scipy"
+      ],
+      "primary_sources": [
+        "https://docs.scipy.org/doc/scipy/reference/optimize.html"
+      ],
+      "main_risk": "KKT/局部收敛不自动推出非凸全局最优",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "dynamic_programming",
+      "task_family": "optimization",
+      "methods": [
+        "DP"
+      ],
+      "preconditions": [
+        "阶段/状态/转移与最优子结构可表达",
+        "状态空间预算可承受"
+      ],
+      "reject_if": [
+        "状态遗漏必要历史",
+        "离散化误差无界却报精确"
+      ],
+      "validation": [
+        "小规模枚举",
+        "转移/边界核查",
+        "状态分辨率敏感性"
+      ],
+      "optional_packages": [],
+      "primary_sources": [],
+      "main_risk": "需题目推导和可执行checker；可用教材作解释但不是硬依赖",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "heuristics",
+      "task_family": "optimization",
+      "methods": [
+        "greedy",
+        "SA",
+        "GA",
+        "PSO",
+        "ant_colony"
+      ],
+      "preconditions": [
+        "原模型checker可验证可行性",
+        "精确方法不适合规模或预算有证据"
+      ],
+      "reject_if": [
+        "缺少可行性修复/检查",
+        "凭模型名称声称增益"
+      ],
+      "validation": [
+        "等预算对比",
+        "多种子与终止规则",
+        "已知小规模最优/上下界",
+        "独立约束复算"
+      ],
+      "optional_packages": [],
+      "primary_sources": [],
+      "main_risk": "选择一种有依据的路线而非全部堆叠；需核验具体实现资料",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "multiobjective",
+      "task_family": "optimization",
+      "methods": [
+        "epsilon_constraint",
+        "weighted_sum",
+        "Pareto_search"
+      ],
+      "preconditions": [
+        "冲突目标及尺度明确",
+        "用户偏好或Pareto交付已确认"
+      ],
+      "reject_if": [
+        "未说明尺度/权重直接混加",
+        "加权和结果声称完整非凸Pareto前沿"
+      ],
+      "validation": [
+        "可行性/非支配检查",
+        "尺度/偏好敏感性",
+        "代表性方案比较"
+      ],
+      "optional_packages": [
+        "scipy",
+        "cvxpy"
+      ],
+      "primary_sources": [
+        "https://docs.scipy.org/doc/scipy/reference/optimize.html",
+        "https://www.cvxpy.org/tutorial/dcp/index.html"
+      ],
+      "main_risk": "单一偏好解不等于完整前沿",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "graph_specialized",
+      "task_family": "graph_network",
+      "methods": [
+        "shortest_path",
+        "MST",
+        "max_flow",
+        "matching"
+      ],
+      "preconditions": [
+        "拓扑/方向/权重/容量含义明确",
+        "选用算法的图条件满足"
+      ],
+      "reject_if": [
+        "负权条件不符算法",
+        "空间/容量约束未映射图模型"
+      ],
+      "validation": [
+        "边/节点约束",
+        "小图已知解",
+        "与简单策略对照"
+      ],
+      "optional_packages": [
+        "networkx"
+      ],
+      "primary_sources": [
+        "https://networkx.org/documentation/stable/reference/algorithms/index.html"
+      ],
+      "main_risk": "先专用结构算法再通用元启发式",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "ode_mechanism",
+      "task_family": "mechanism_simulation",
+      "methods": [
+        "ODE",
+        "compartment_model"
+      ],
+      "preconditions": [
+        "状态/机制/单位/初值明确",
+        "参数来源或可辨识条件存在"
+      ],
+      "reject_if": [
+        "机制无依据却用拟合高分证明真实"
+      ],
+      "validation": [
+        "已知算例/守恒",
+        "步长/容差收敛",
+        "参数/初值/外部观测检验"
+      ],
+      "optional_packages": [
+        "scipy"
+      ],
+      "primary_sources": [
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html"
+      ],
+      "main_risk": "数值成功不证明机制或参数可辨识",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "pde_spatial",
+      "task_family": "mechanism_simulation",
+      "methods": [
+        "PDE",
+        "finite_difference",
+        "finite_element"
+      ],
+      "preconditions": [
+        "空间连续机制与边界条件有依据",
+        "离散方法稳定性可核查"
+      ],
+      "reject_if": [
+        "边界/网格独立性遗漏",
+        "将离散误差当真实现象"
+      ],
+      "validation": [
+        "解析/制造解",
+        "网格/时间步收敛",
+        "守恒与边界残差"
+      ],
+      "optional_packages": [],
+      "primary_sources": [],
+      "main_risk": "调用所选FEM/PDE包时核验官方文档和实际依赖",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "monte_carlo",
+      "task_family": "uncertainty_simulation",
+      "methods": [
+        "Monte_Carlo",
+        "scenario_simulation"
+      ],
+      "preconditions": [
+        "分布/依赖结构有数据或假设来源",
+        "样本预算与目标精度明确"
+      ],
+      "reject_if": [
+        "随机独立假设违背实际依赖",
+        "仅增加样本声称消除模型偏差"
+      ],
+      "validation": [
+        "种子/样本收敛",
+        "Monte Carlo误差",
+        "分布/情景敏感性"
+      ],
+      "optional_packages": [
+        "numpy"
+      ],
+      "primary_sources": [],
+      "main_risk": "需核验分布依据，模拟区间不是自动的真实预测区间",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "agent_discrete_simulation",
+      "task_family": "mechanism_simulation",
+      "methods": [
+        "ABM",
+        "cellular_automata",
+        "discrete_event"
+      ],
+      "preconditions": [
+        "规则/交互/边界与尺度明确",
+        "校准数据或机制依据可用"
+      ],
+      "reject_if": [
+        "用合理外观代替校准",
+        "过多自由参数不可辨识"
+      ],
+      "validation": [
+        "已知小场景",
+        "守恒/规则检查",
+        "规则/初始条件敏感性",
+        "真实观测对照"
+      ],
+      "optional_packages": [],
+      "primary_sources": [],
+      "main_risk": "规则选择决定现实解释；框架/算法按题目另核验",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "inference_resampling",
+      "task_family": "statistical_inference",
+      "methods": [
+        "parametric_test",
+        "bootstrap",
+        "permutation"
+      ],
+      "preconditions": [
+        "抽样/分组/时序依赖已说明",
+        "原假设/效应量/多重比较口径明确"
+      ],
+      "reject_if": [
+        "依赖数据直接iid bootstrap",
+        "事后选检验只报显著"
+      ],
+      "validation": [
+        "效应量及区间",
+        "分布/设计条件",
+        "分组/block重采样按依赖"
+      ],
+      "optional_packages": [
+        "scipy",
+        "statsmodels"
+      ],
+      "primary_sources": [
+        "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html"
+      ],
+      "main_risk": "普通bootstrap实现文档不证明数据满足iid条件",
+      "default_status": "conditional_until_problem_and_data_checked"
+    },
+    {
+      "id": "causal_identification",
+      "task_family": "causal_inference",
+      "methods": [
+        "randomized_design",
+        "adjustment",
+        "DiD",
+        "IV"
+      ],
+      "preconditions": [
+        "因果目标/识别假设/时间顺序明确",
+        "设计或可辩护外生变化存在"
+      ],
+      "reject_if": [
+        "只有相关/预测特征贡献",
+        "未核查识别假设却报因果"
+      ],
+      "validation": [
+        "设计特定识别检验",
+        "负对照/敏感性/替代解释",
+        "估计与识别分离"
+      ],
+      "optional_packages": [],
+      "primary_sources": [],
+      "main_risk": "本卡仅路由，使用具体方法必须核验原始研究/官方实现及题目识别条件",
+      "default_status": "conditional_until_problem_and_data_checked"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+version: "0.2"
+question: "qN"
+input_files: []
+selected_columns: []
+principle: "只处理数据或模型真正需要的项目；未证实的动作标记 pending，不机械执行全部类别。"
+missing:
+  needed: null
+  options_considered: [] # delete | interpolate | statistical_fill | model_fill
+  method: null
+  reason: null
+  affected_rows: null
+outliers:
+  needed: null
+  detection: null
+  action: "flag_not_delete"
+  reason: null
+  affected_rows: []
+scaling:
+  needed: null
+  method: null # standardize | normalize | other
+  fit_scope: null
+  inverse_transform: null
+categorical:
+  needed: null
+  method: null # one_hot | label | target | other
+  unknown_category_policy: null
+features:
+  needed: null
+  extraction_or_construction: []
+  reason: null
+  leakage_risk_checked: null
+split:
+  method: null
+  train: null
+  validation: null
+  test: null
+leakage_check:
+  time_order_preserved: null
+  future_features_used: null
+  preprocess_fit_scope_valid: null
+units:
+  preserved: true
+  conversions: []
+effective_sample_size: null
+pending_evidence: []
+validation_report: null

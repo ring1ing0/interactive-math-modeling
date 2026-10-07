@@ -1,0 +1,54 @@
+{
+  "schema_version": "0.2",
+  "project_status": "initialized",
+  "current_phase": "S0",
+  "current_question": null,
+  "current_unit": null,
+  "stop_point": null,
+  "next_action": "inventory_problem",
+  "problem_framed": false,
+  "global_constraints_audited": false,
+  "global_preprocessing_done": false,
+  "literature_status": "PENDING",
+  "literature_reason": null,
+  "modeling_complete": false,
+  "handoff_ready": false,
+  "integration_review": "PENDING",
+  "integration_review_ref": null,
+  "project_snapshot_id": null,
+  "project_snapshot_manifest": null,
+  "final_figures_audited": false,
+  "manuscript_audit": "NOT_PROVIDED",
+  "award_assessment": "PENDING",
+  "award_assessment_ref": null,
+  "questions": {
+    "q1": {
+      "requirement_ids": [],
+      "dependencies": [],
+      "snapshot_id": null,
+      "snapshot_manifest": null,
+      "claim_contract_ref": null,
+      "units": {
+        "u1": {
+          "caliber_decided": false,
+          "decided": false,
+          "preprocessing_plan_confirmed": false,
+          "preprocessing_executed": false
+        }
+      },
+      "review_refs": {},
+      "plan_review": "PENDING",
+      "code_review": "PENDING",
+      "result_review": "PENDING",
+      "caliber_review": "PENDING",
+      "visual_confirmed": false,
+      "param_spec_confirmed": false,
+      "chart_plan_confirmed": false,
+      "code_contract_confirmed": false,
+      "coded": false,
+      "frozen": false,
+      "review_snapshot_ids": {}
+    }
+  },
+  "final_evidence_refs": []
+}

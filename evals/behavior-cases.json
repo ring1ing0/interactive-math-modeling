@@ -1,0 +1,55 @@
+{
+  "scope": "Behavior scenarios; defined cases do not imply host end-to-end runs have passed",
+  "cases": [
+    {
+      "id": "hard_constraint",
+      "input": "run exit 0 but independent budget check fails",
+      "expect": "FAIL, no freeze"
+    },
+    {
+      "id": "claim_upgrade",
+      "input": "heuristic best feasible but manuscript says global optimum",
+      "expect": "caliber finding, proof or claim downgrade"
+    },
+    {
+      "id": "no_manuscript",
+      "input": "verified models and handoff without manuscript",
+      "expect": "modeling_complete possible; manuscript NOT_PROVIDED; assess model-only award potential"
+    },
+    {
+      "id": "upstream_drift",
+      "input": "upstream result unit/version changes",
+      "expect": "invalidate dependent frozen gates, not all unrelated questions"
+    },
+    {
+      "id": "algorithm_structure",
+      "input": "linear discrete logic scheduling task",
+      "expect": "consider MILP/CP-SAT structure before generic PSO; record baseline and checker"
+    },
+    {
+      "id": "textbook_missing",
+      "input": "no private algorithm textbook installed",
+      "expect": "use internal catalog and primary sources, do not block unrelated modeling"
+    },
+    {
+      "id": "award_scope",
+      "input": "all questions frozen, no manuscript nor comparable award papers",
+      "expect": "qualitative modeling potential; unreviewed expression/layout; no fabricated percentages or exact tier"
+    },
+    {
+      "id": "independent_capability",
+      "input": "host has no independent delegate",
+      "expect": "self_check explicitly, independent gate BLOCKED"
+    },
+    {
+      "id": "permission_persistence",
+      "input": "user approved execution contract and asks proceed",
+      "expect": "execute within recorded scope, no repeated approval"
+    },
+    {
+      "id": "writing_boundary",
+      "input": "writer sends a result chapter with wrong unit",
+      "expect": "locate conflict and give local correction; do not rewrite full chapter"
+    }
+  ]
+}

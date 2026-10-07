@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.2",
+  "stage": "result_review",
+  "question": "qN",
+  "snapshot_id": null,
+  "reviewer_id": null,
+  "independence": "independent",
+  "verdict": "PENDING",
+  "coverage": [],
+  "checks": [],
+  "findings": [],
+  "unreviewed": [],
+  "repair_round": 0
+}

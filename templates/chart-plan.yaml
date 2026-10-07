@@ -1,0 +1,24 @@
+top_level_question: "q1"
+code_batch: "q1-main"
+status: "draft|discussion|confirmed|revised"
+visual_contract_ref: "questions/q1/visual-contract.yaml"
+user_confirmation: null
+charts:
+  - chart_id: "q1-fig-001"
+    chart_name: null
+    chart_type: null
+    discussion_question: null
+    purpose: null
+    claim_supported: null
+    source_data: []
+    source_columns: []
+    units: []
+    transformations: []
+    statistical_summary: null
+    uncertainty: null
+    constraints_or_baselines: []
+    color_semantics: null
+    diagnostic_or_result: "diagnostic|result"
+    output_path: null
+    acceptance_criteria: []
+    status: "planned|generated|rejected"

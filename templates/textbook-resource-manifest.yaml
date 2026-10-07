@@ -1,0 +1,26 @@
+version: "0.1"
+status: "draft|confirmed"
+books:
+  - id: "book-1"
+    title: null
+    author: null
+    edition: null
+    source_path: null
+    skill_root: null
+    content_paths: []
+    index_path: null
+    extraction_status: "missing|indexed|verified"
+    notes: null
+  - id: "book-2"
+    title: null
+    author: null
+    edition: null
+    source_path: null
+    skill_root: null
+    content_paths: []
+    index_path: null
+    extraction_status: "missing|indexed|verified"
+    notes: null
+rules:
+  - "只有 extraction_status=verified 的教材内容才能标记为 TEXTBOOK 依据"
+  - "教材 Skill 只有流程说明但没有教材内容时，不得把流程说明当作教材知识"

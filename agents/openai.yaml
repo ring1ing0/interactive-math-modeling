@@ -1,0 +1,6 @@
+interface:
+  display_name: "Interactive Math Modeling"
+  short_description: "交互建模、逐问证据验收与写作口径核对"
+  default_prompt: "Use $interactive-math-modeling to build and verify models interactively, hand off evidence for writing, and assess approximate award potential after all questions are frozen."
+policy:
+  allow_implicit_invocation: false

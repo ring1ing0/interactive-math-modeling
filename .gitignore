@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+.interactive-mm/
+resource-overrides.local.json
+resources.local.json
+work/
+runs/
+questions/
+data/
+results/
+*.key
+*.pem

@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.2",
+  "question": "qN",
+  "snapshot_id": null,
+  "claims": [
+    {
+      "id": "qN-C1",
+      "unit": "u1",
+      "requirement_ids": [],
+      "statement": null,
+      "support_status": "UNSUPPORTED",
+      "scope": null,
+      "conditions": [],
+      "limitations": [],
+      "obligations": [],
+      "evidence_refs": [],
+      "forbidden_claims": [],
+      "numeric_display": {
+        "source_value": null,
+        "display_value": null,
+        "unit": null,
+        "rounding": null
+      },
+      "method_ref": null,
+      "run_ref": null,
+      "upstream_interfaces": []
+    }
+  ]
+}

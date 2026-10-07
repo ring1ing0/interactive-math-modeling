@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.2",
+  "claims": [],
+  "fields": {
+    "claim_id": "qN-C1",
+    "source_type": "PROBLEM|DATA|LITERATURE|ASSUMPTION|BENCHMARK",
+    "provenance_ref": null,
+    "support_status": "UNSUPPORTED|CONDITIONAL|SUPPORTED",
+    "obligations": [],
+    "evidence_refs": [],
+    "run_id": null,
+    "snapshot_id": null,
+    "verification_method": null,
+    "tolerance": null,
+    "scope": null,
+    "limitations": [],
+    "review_ref": null
+  }
+}

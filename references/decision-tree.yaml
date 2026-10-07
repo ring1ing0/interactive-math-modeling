@@ -1,0 +1,16 @@
+version: "0.2"
+purpose: "D1后使用证据筛选、基线比较和验证设计；不自动替用户拍板"
+selection_ref: algorithm-selection.md
+catalog_ref: algorithm-catalog.yaml
+order: [task_and_information, mathematical_structure, evidence_and_feasibility, baseline, comparable_validation, user_D2, executed_comparison]
+evidence_types: [DATA, PROBLEM, LITERATURE, ASSUMPTION, BENCHMARK]
+unknown_precondition: conditional
+incompatible_precondition: rejected
+candidate_states: [recommended, feasible_comparison, conditional, rejected]
+complexity_upgrade: demonstrated_defect_and_validation_gain
+textbook_required: false
+teaching_fields:
+  explanation_source: internal_catalog_or_configured_resource_or_verified_primary_source
+  textbook_ref: null
+  explanation_depth: intuitive_or_formal_or_derivation
+  misconception_checks: []

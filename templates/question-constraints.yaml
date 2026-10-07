@@ -1,0 +1,15 @@
+version: "0.1"
+question: "qN"
+inherits_global_version: "0.1"
+constraints: []
+schema:
+  id: "C-QN-001"
+  relation_to_global: "inherited|new|tightened|derived|conflict"
+  type: "hard|soft|derived_hard|assumption"
+  source_type: "DATA|PROBLEM|LITERATURE|ASSUMPTION|USER"
+  source_ref: null
+  expression: null
+  variables: []
+  unit: null
+  verification: null
+  downstream_questions: []

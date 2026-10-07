@@ -1,0 +1,29 @@
+version: "0.1"
+question: "qN"
+status: "draft|confirmed|revised"
+confirmed_by_user: false
+principle: "每个参数取值必须有依据并标注来源；灵敏度分析只覆盖对结论有实质影响的参数；无可扰动参数时显式声明 needed: false 并给出理由，不机械执行。"
+
+units:
+  - unit: "qN.uK"
+    algorithm: null # 该 unit 已拍板算法
+    parameters:
+      - name: null # 参数名
+        value: null
+        basis: "literature|data|constraint|user_specified|library_default"
+        basis_ref: null # 文献位置 / 数据行 / 约束条目 / 用户原话
+        valid_range: null
+    sensitivity:
+      needed: true
+      reason: null
+      method: "one_at_a_time|grid|scenario|global"
+      perturbed:
+        - name: null # 被扰动参数
+          levels_or_range: null
+      metric: null # 观察的输出指标
+      acceptance: null # 结论方向不反转 / 排序保持 / 阈值内
+      on_failure: null # 改参数 / 回退口径 / 升级模型 / 如实标注局限
+
+sensitivity_figures: [] # 灵敏度结果图；超出 chart-plan 范围的新图必须回到图表讨论
+pending_evidence: []
+notes: null

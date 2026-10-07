@@ -1,0 +1,43 @@
+version: "0.1"
+question: "qN"
+status: "draft|confirmed|revised"
+confirmed_by_user: false
+language: "python"
+language_version: null
+entrypoint: null
+working_directory: null
+run_command: null
+dependencies: []
+random_seed: null
+inputs: []
+outputs: []
+required_diagnostic_figures: []
+tests:
+  minimum_run: null
+  constraint_checks: []
+  numerical_checks: []
+  sensitivity_checks: []
+error_handling:
+  missing_input: "fail"
+  invalid_data: "fail_and_report"
+  solver_failure: "fail_and_report"
+performance_limits:
+  timeout_seconds: null
+  memory_mb: null
+notes: null
+
+visual_contract_ref: "questions/qN/visual-contract.yaml"
+chart_plan_ref: "questions/qN/chart-plan.yaml"
+param_sensitivity_ref: "questions/qN/param-sensitivity-spec.yaml"
+
+execution_authorization:
+  user_record_ref: null
+  allowed_output_directories: []
+  reproduction_directory: null
+  raw_inputs_read_only: true
+  command_scope_confirmed: false
+validation_assets:
+  baseline_ref: null
+  independent_checker_ref: null
+  claim_contract_ref: null
+  constraint_tolerances: []

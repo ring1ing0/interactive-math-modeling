@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.2",
+  "project_snapshot_id": null,
+  "evidence_basis": "modeling_artifacts",
+  "manuscript_reviewed": false,
+  "estimate_kind": "qualitative_uncalibrated",
+  "competition": {
+    "name": null,
+    "year": null,
+    "division": null
+  },
+  "standards": [],
+  "comparison_refs": [],
+  "potential": "证据不足",
+  "likely_tier_range": null,
+  "confidence": "低",
+  "rationale": [],
+  "unreviewed": [
+    "expression",
+    "layout",
+    "submission_compliance"
+  ],
+  "deduction_risks": [],
+  "priority_improvements": [],
+  "evidence_refs": []
+}

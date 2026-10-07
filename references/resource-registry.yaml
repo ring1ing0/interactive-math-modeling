@@ -1,0 +1,53 @@
+version: "0.3"
+policy:
+  mode: adapter
+  activate_external_orchestrators: false
+  local_overrides: .interactive-mm/resource-overrides.json
+  host_only_overrides: resources.local.json
+  precedence: project_overrides_then_host_only_overrides_then_internal_defaults
+  missing_resource_action: fallback_then_report_relevant_gap
+  distribute_external_materials: false
+core:
+  host_tools: [file_read_write, authorized_execution]
+  independent_review: host_subagents_or_independent_sessions
+  independent_review_unavailable: self_check_only_keep_independent_gate_blocked
+  internal_algorithm_selection: references/algorithm-selection.md
+  internal_algorithm_catalog: references/algorithm-catalog.yaml
+  workflow_checker: scripts/check_workflow.py
+  checker_runtime: python_3_10_plus_standard_library
+optional_resources:
+  algorithm_textbooks:
+    override_key: algorithm_textbooks
+    expected_files: [SKILL.md, references/index-routing.md, references/index-algorithms.md]
+    scope: method_explanation_and_chapter_references
+    required: false
+  modeling_assets:
+    override_key: modeling_assets
+    expected_files: [references/算法索引.md]
+    scope: algorithm_assets_or_specialist_tools
+    excluded: [parent_workflow, paper_writing, default_fixed_figure_counts]
+    required: false
+  viz_library:
+    override_key: viz_library
+    expected_files: [SKILL.md]
+    scope: chart_scenes_colors_style
+    required: false
+optional_skills:
+  scientific-visualization: final_figure_truth_and_accessibility
+  data-visualization: chart_design_fallback
+  data-visualization-publication: publication_export_if_needed
+  theory-course-learning: only_user_requested_course_teaching
+  academic-paper-reviewer: only_requested_additional_manuscript_review
+  deep-research: only_requested_broader_research
+  documents: only_docx_attachment_extraction_or_external_writer_work
+  pdf: only_pdf_attachment_or_figure_inspection
+  spreadsheets: only_tabular_file_tasks
+runtime_packages:
+  numerical: [numpy, scipy]
+  tabular: [pandas]
+  prediction: [scikit-learn, statsmodels]
+  graph: [networkx]
+  optimization: [scipy, ortools, cvxpy]
+  plotting: [matplotlib]
+  rule: install_only_selected_task_needs_record_versions_and_solver_availability
+not_dependencies: [academic-pipeline, external_math_modeling_orchestrator, latex_engine, private_textbook_corpus, particular_llm_vendor]

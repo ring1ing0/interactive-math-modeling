@@ -1,0 +1,15 @@
+version: "0.1"
+scope: "global"
+constraints: []
+schema:
+  id: "C-G-001"
+  type: "hard|soft|derived_hard|assumption|delivery"
+  source_type: "DATA|PROBLEM|LITERATURE|ASSUMPTION|USER"
+  source_ref: "题面、数据、论文或用户确认位置"
+  expression: "自然语言或数学表达"
+  variables: []
+  unit: null
+  priority: 1
+  status: "active|conflict|retired"
+  verification: null
+  notes: null
